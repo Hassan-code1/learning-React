@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import { useState } from "react";
+import { useState } from "react";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import Layout from "./pages/Layout";
 // import Home from "./pages/Home";
@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom/client';
 // import NoPage from "./pages/NoPage";
 // import Todos from "./Todos";
 // import Car from './Car.js';
-
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // const App = () => {
 //   const [count, setCount] = useState(0);
@@ -152,14 +152,110 @@ import ReactDOM from 'react-dom/client';
 //   return <h2>Brand Name:{props.brand}!</h2>
 // }
 
-function Click(){
-  const mouse = (a, b) => {
-    alert(b.type);
+// function Click(){
+//   const mouse = (a, b) => {
+//     alert(b.type);
+//   }
+//   return(
+//     <button onClick={(event) => mouse("Nice Click!", event)}>Click Here</button>
+//   );
+// }
+
+// function MissedGoal(){
+//   return <h1>Missed</h1>;
+// }
+// function MadeGoal(){
+//   return <h1>Goal!</h1>;
+// }
+// function Goal(props){
+//   const isGoal = props.isGoal;
+//  // if(isGoal){
+//  //   return <MadeGoal />;
+//  // }
+//  // return <MissedGoal />;
+//  return(
+//   <>
+//     {isGoal ? <MadeGoal/> : <MissedGoal/>}
+//   </>
+//  )
+// }
+// root.render(<Goal isGoal={true}/>)
+
+
+// function Car(props){
+//   return <li>Car Brand : {props.brand}</li>;
+// }
+// function Garage(_props){
+//   const cars = [
+//     {id: 1, brand: 'Ford'},
+//     {id: 2, brand: 'BMW'}, 
+//     {id: 3, brand: 'Audi'}
+//   ];
+//   return(
+//     <>
+//       <h1>How many cars in my Garage:</h1>
+//       {cars.length > 0 && 
+//         <h2>I have {cars.length} cars in my Garage</h2>
+//       }
+//       <ul>
+//         {cars.map((car) => <Car key={car.id} brand={car.brand}/>)}
+//       </ul>
+//     </>
+//   );
+// }
+
+// function MyForm(){
+//   const [name, setName] = useState("");
+//   const handleSubmit = (event) => {
+//     alert(`The name you entered was : ${name}`);
+//   }
+//   return(
+//     <form onSubmit={handleSubmit}>
+//       <label> Enter your name:
+//         <input type='text' value={name} 
+//         onChange={(e) => {setName(e.target.value)}}/>
+//       </label>
+//       <input type='submit' />
+//     </form>
+//   )
+// }
+
+
+function MyForm(){
+  const [inputs, setInputs] = useState({});
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({...values, [name]: value}))
   }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(inputs);
+  }
+
   return(
-    <button onClick={(event) => mouse("Nice Click!", event)}>Click Here</button>
-  );
+    <form onSubmit={handleSubmit}>
+      <label> Enter your name:
+        <input 
+          type='text'
+          name='username' 
+          value={inputs.username || ""} 
+          onChange={handleChange}
+        />
+      </label>
+      <label> Enter your age:
+        <input 
+          type='text'
+          name='age' 
+          value={inputs.age || ""} 
+          onChange={handleChange}
+        />
+      </label>
+      <input type='submit' />
+    </form>
+  )
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Click/>)
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<MyForm/>)
